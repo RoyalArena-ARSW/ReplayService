@@ -21,4 +21,7 @@ public interface ReplayRepository extends JpaRepository<Replay, Long> {
     /** Cuántas replays tiene un usuario (para la retención de máx 10). */
     @Query("SELECT COUNT(r) FROM Replay r WHERE r.playerAId = :userId OR r.playerBId = :userId")
     long countByParticipant(@Param("userId") Long userId);
+
+    @Query("SELECT COUNT(r) > 0 FROM Replay r WHERE r.matchId = :matchId")
+    boolean findByMatchIdExists(@Param("matchId") String matchId);
 }
